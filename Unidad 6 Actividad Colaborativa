@@ -1,0 +1,49 @@
+#include <stdio.h>
+void qsort(int izq, int der, float a[]);
+main()
+{
+    float notas[] = {10.0, 8.0, 5.5, 3.4, 3.2, 2.5, 2.2, 1.5};
+    int i, n = 0;
+    n = sizeof(notas) / sizeof(float);
+    qsort(0, n - 1, notas);
+    for (i = 0; i < n; i++)
+    {
+        printf("%d= %.2f \n", i, notas[i]);
+    }
+    return 0;
+}
+void qsort(int izq, int der, float a[])
+{
+    int i, j;
+    float tmp, x;
+    i = izq;
+    j = der;
+    x = a[(izq + der) / 2];
+    do
+    {
+        while (a[i] < x)
+        {
+            i++;
+        }
+        while (x < a[j])
+        {
+            j--;
+        }
+        if (i <= j)
+        {
+            tmp = a[i];
+            a[i] = a[j];
+            a[j] = tmp;
+            i++;
+            j--;
+        }
+    } while (i <= j);
+    if (izq < j)
+    {
+        qsort(izq, j, a);
+    }
+    if (i < der)
+    {
+        qsort(i, der, a);
+    }
+}
